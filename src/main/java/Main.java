@@ -6,15 +6,15 @@ public class Main {
 
     public static void main(String args[]) {
         Main main = new Main();
-        main.whoIP();
-        main.passiveDns();
+        main.whoIP("bbc.co.uk");
+        main.passiveDns("bbc.co.uk");
     }
 
-    private void whoIP() {
+    private void whoIP(String domain) {
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body1 = RequestBody.create(mediaType, "{\n    \"query\": \"bbc.co.uk\"\n}\n");
+        RequestBody body1 = RequestBody.create(mediaType, "{\n    \"query\": \"" + domain +"\"\n}\n");
         Request request = new Request.Builder()
                 .url("https://api.passivetotal.org/v2/whois")
                 .get()
@@ -35,11 +35,11 @@ public class Main {
         }
     }
 
-    private void passiveDns(){
+    private void passiveDns(String domain){
         OkHttpClient client = new OkHttpClient();
 
         MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{\n    \"query\": \"bbc.co.uk\"\n}");
+        RequestBody body = RequestBody.create(mediaType, "{\n    \"query\": \"" + domain + "\"\n}");
         Request request = new Request.Builder()
                 .url("https://api.passivetotal.org/v2/dns/passive")
                 .get()
